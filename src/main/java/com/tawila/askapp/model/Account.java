@@ -1,19 +1,26 @@
 package com.tawila.askapp.model;
 
-import java.sql.Timestamp;
+import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "account")
-public class Account {
+public class Account implements Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -7610553697205845694L;
 	@Id
-	@Column(name = "id")
+	@Column(name = "id", unique = true, nullable = false)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	@Column(name = "email")
 	private String email;
@@ -31,8 +38,6 @@ public class Account {
 	private Long language;
 	@Column(name = "creation_date")
 	private Date creationDate;
-	@Column(name = "creation_time")
-	private Timestamp creationTime;
 
 	public Long getId() {
 		return id;
@@ -102,15 +107,7 @@ public class Account {
 		return creationDate;
 	}
 
-	public void setCreation_date(Date creationDate) {
+	public void setCreationDate(Date creationDate) {
 		this.creationDate = creationDate;
-	}
-
-	public Timestamp getCreationTime() {
-		return creationTime;
-	}
-
-	public void setCreationTime(Timestamp creationTime) {
-		this.creationTime = creationTime;
 	}
 }

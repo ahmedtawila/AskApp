@@ -1,14 +1,14 @@
-package com.tawila.askapp.form;
+package com.tawila.askapp.dto;
 
 import java.io.Serializable;
 import java.util.Date;
 
-public class AccountForm implements Serializable {
+public class AccountDTO implements Serializable {
 
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 5346592567050473257L;
+	private static final long serialVersionUID = 3343520558836352167L;
 
 	private String email;
 	private String fullname;
@@ -73,5 +73,4 @@ public class AccountForm implements Serializable {
 	public void setLanguage(Long language) {
 		this.language = language;
 	}
-
 }
