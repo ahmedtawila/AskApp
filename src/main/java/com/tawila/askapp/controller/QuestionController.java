@@ -1,5 +1,8 @@
 package com.tawila.askapp.controller;
 
+import java.util.Date;
+
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,17 +24,11 @@ public class QuestionController {
 	@SuppressWarnings("rawtypes")
 	@RequestMapping("/ask")
 	public ResponseEntity ask(@RequestBody QuestionForm questionForm) {
-		QuestionDTO questionDTO = convertQuestionFormToDTO(questionForm);
+		QuestionDTO questionDTO = new QuestionDTO();
+		BeanUtils.copyProperties(questionForm, questionDTO);
+		questionDTO.setCreationDate(new Date());
 
 		questionService.ask(questionDTO);
 		return ResponseEntity.status(HttpStatus.OK).body("SUCCESS");
-	}
-
-	public QuestionDTO convertQuestionFormToDTO(QuestionForm questionForm) {
-		QuestionDTO questionDTO = new QuestionDTO();
-		questionDTO.setAskedId(questionForm.getAskedId());
-		questionDTO.setAskerId(questionForm.getAskerId());
-		questionDTO.setDetails(questionForm.getDetails());
-		return questionDTO;
 	}
 }

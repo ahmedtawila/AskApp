@@ -1,7 +1,6 @@
 package com.tawila.askapp.service.impl;
 
-import java.util.Date;
-
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,19 +16,8 @@ public class AccountServiceImpl implements AccountService {
 	private AccountRepository accountRepository;
 
 	public void create(AccountDTO accountDTO) {
-		accountRepository.save(convertDTOToEntity(accountDTO));
-	}
-
-	public Account convertDTOToEntity(AccountDTO accountDTO) {
 		Account account = new Account();
-		account.setBirthday(accountDTO.getBirthday());
-		account.setEmail(accountDTO.getEmail());
-		account.setFullname(accountDTO.getFullname());
-		account.setGender(accountDTO.getGender());
-		account.setLanguage(accountDTO.getLanguage());
-		account.setPassword(accountDTO.getPassword());
-		account.setUsername(accountDTO.getUsername());
-		account.setCreationDate(new Date());
-		return account;
+		BeanUtils.copyProperties(accountDTO, account);
+		accountRepository.save(account);
 	}
 }

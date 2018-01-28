@@ -17,6 +17,7 @@ public class AccountDTO implements Serializable {
 	private Date birthday;
 	private Long gender;
 	private Long language;
+	private Date creationDate;
 
 	public String getEmail() {
 		return email;
@@ -72,5 +73,13 @@ public class AccountDTO implements Serializable {
 
 	public void setLanguage(Long language) {
 		this.language = language;
+	}
+
+	public Date getCreationDate() {
+		return creationDate;
+	}
+
+	public void setCreationDate(Date creationDate) {
+		this.creationDate = creationDate;
 	}
 }

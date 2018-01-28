@@ -1,7 +1,6 @@
 package com.tawila.askapp.service.impl;
 
-import java.util.Date;
-
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,15 +17,8 @@ public class QuestionServiceImpl implements QuestionService {
 
 	@Override
 	public Question ask(QuestionDTO questionDTO) {
-		return questionRepository.save(convertDTOToEntity(questionDTO));
-	}
-
-	public Question convertDTOToEntity(QuestionDTO questionDTO) {
 		Question question = new Question();
-		question.setAskedId(questionDTO.getAskedId());
-		question.setAskerId(questionDTO.getAskerId());
-		question.setDetails(questionDTO.getDetails());
-		question.setCreationDate(new Date());
-		return question;
+		BeanUtils.copyProperties(questionDTO, question);
+		return questionRepository.save(question);
 	}
 }

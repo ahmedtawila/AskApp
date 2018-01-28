@@ -1,5 +1,8 @@
 package com.tawila.askapp.controller;
 
+import java.util.Date;
+
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,21 +25,11 @@ public class AccountController {
 	@SuppressWarnings("rawtypes")
 	@RequestMapping(value = "/create", method = RequestMethod.POST)
 	public ResponseEntity create(@RequestBody AccountForm accountForm) {
-		AccountDTO accountDTO = convertAccountFormToDTO(accountForm);
+		AccountDTO accountDTO = new AccountDTO();
+		BeanUtils.copyProperties(accountForm, accountDTO);
+		accountDTO.setCreationDate(new Date());
 
 		accountService.create(accountDTO);
 		return ResponseEntity.status(HttpStatus.OK).body("SUCCESS");
-	}
-
-	public AccountDTO convertAccountFormToDTO(AccountForm accountForm) {
-		AccountDTO accountDTO = new AccountDTO();
-		accountDTO.setBirthday(accountForm.getBirthday());
-		accountDTO.setEmail(accountForm.getEmail());
-		accountDTO.setFullname(accountForm.getFullname());
-		accountDTO.setGender(accountForm.getGender());
-		accountDTO.setLanguage(accountForm.getLanguage());
-		accountDTO.setPassword(accountForm.getPassword());
-		accountDTO.setUsername(accountForm.getUsername());
-		return accountDTO;
 	}
 }
